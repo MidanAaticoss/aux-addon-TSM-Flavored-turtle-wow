@@ -167,6 +167,17 @@ function weighted_median(list)
 	end
 end
 
+[[ Custom Pricing Function ]]
+function GetTSMMarketValue(itemString)
+    local itemData = aux_history[itemString]
+    if not itemData then return 0 end
+    
+    [[ Insert statistical smoothing logic here ]]
+    local smoothedValue = applyMovingAverage(itemData)
+    
+    return smoothedValue
+end
+
 function push_record(item_record)
 	if item_record.daily_min_buyout then
 		tinsert(item_record.data_points, 1, T.map('value', item_record.daily_min_buyout, 'time', item_record.next_push))
